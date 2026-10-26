@@ -41,6 +41,8 @@ public class LinkedList_1 {
     static Node insertAtEnd(Node head, int data) {
         Node node = new Node(data);
         Node temp = head;
+        if (head == null)
+            return node;
         while (temp.next != null) {
             temp = temp.next;
         }
@@ -50,21 +52,32 @@ public class LinkedList_1 {
     }
 
     static Node deleteAtBeg(Node head) {
+        if (head == null)
+            return null;
 
         head = head.next;
         return head;
     }
 
     static Node deleteAtPos(Node head, int pos) {
+        if (head == null || pos < 1)
+            return head;
+        if (pos == 1)
+            return deleteAtBeg(head);
         Node temp = head;
-        for (int i = 1; i < pos; i++) {
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
             temp = temp.next;
         }
+        if (temp == null || temp.next == null)
+            return head;
         temp.next = temp.next.next;
         return head;
     }
 
     static Node deleteAtEnd(Node head) {
+
+        if (head == null || head.next == null)
+            return null;
         Node temp = head;
         while (temp.next.next != null) {
             temp = temp.next;
@@ -75,11 +88,18 @@ public class LinkedList_1 {
     }
 
     static Node insertAtPos(Node head, int pos, int data) {
+        if (pos < 1)
+            return head;
+        if (pos == 1)
+            return insertAtBeg(head, data);
+
         Node node = new Node(data);
         Node temp = head;
-        for (int i = 1; i < pos; i++) {
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
             temp = temp.next;
         }
+        if (temp == null)
+            return head;
         node.next = temp.next;
         temp.next = node;
         return head;
